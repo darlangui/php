@@ -1,12 +1,9 @@
 <?php
 require_once  'Conta.php';
 
-$primeiraConta = new Conta();
+$primeiraConta = new Conta('Darlan', '123.456.789-10');
 
-$primeiraConta->sacar(300);
-$primeiraConta->defineNome('Darlan');
-$primeiraConta->defineCpf('123.456.789-10');
-echo $primeiraConta->recuperarSaldo();
-echo $primeiraConta->recuperarCpf();
-echo $primeiraConta->recuperarNome();
+echo PHP_EOL.$primeiraConta->recuperarSaldo().PHP_EOL;
+echo $primeiraConta->recuperarCpf().PHP_EOL;
+echo $primeiraConta->recuperarNome().PHP_EOL;
 

@@ -3,8 +3,14 @@
 class Conta{
     private string $cpfTitular;  // atributo da conta
     private string $nomeTitular; // atributo da conta
-    private float $saldo = 0; // atributo da conta
+    private float $saldo; // atributo da conta
 
+    public function __construct(String $nome, String $cpf){
+        $this->saldo = 0;
+        $this->nomeTitular = $nome;
+        $this->cpfTitular = $cpf;
+        echo 'criando nova conta'.PHP_EOL;
+    }
     public function sacar(float $valorSacar): void{
         if($valorSacar > $this->saldo){
             echo 'Saldo indisponível';
