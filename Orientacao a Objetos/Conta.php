@@ -1,9 +1,9 @@
 <?php
 
 class Conta{
-    public string $cpfTitular;  // atributo da conta
-    public string $nomeTitular; // atributo da conta
-    public float $saldo = 0; // atributo da conta
+    private string $cpfTitular;  // atributo da conta
+    private string $nomeTitular; // atributo da conta
+    private float $saldo = 0; // atributo da conta
 
     public function sacar(float $valorSacar){
         if($valorSacar > $this->saldo){
