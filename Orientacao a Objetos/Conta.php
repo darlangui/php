@@ -1,16 +1,21 @@
 <?php
 
 class Conta{
-    private string $cpfTitular;  // atributo da conta
-    private string $nomeTitular; // atributo da conta
+    private Titular $titular;// atributo da conta
     private float $saldo; // atributo da conta
-
-    public function __construct(String $nome, String $cpf){
+    private static $numContas;
+    public function __construct(Titular $titular){
         $this->saldo = 0;
-        $this->nomeTitular = $nome;
-        $this->cpfTitular = $cpf;
+        $this->titular = $titular;
         echo 'criando nova conta'.PHP_EOL;
+        self::$numContas++;
     }
+
+    public function __destruct()
+    {
+        self::$numContas--;
+    }
+
     public function sacar(float $valorSacar): void{
         if($valorSacar > $this->saldo){
             echo 'Saldo indisponível';
@@ -40,13 +45,6 @@ class Conta{
         return $this->saldo;
     }
 
-    public function recuperarCpf(): String{
-        return $this->cpfTitular;
-    }
-
-    public function recuperarNome(): String{
-        return $this->nomeTitular;
-    }
 
     public function defineCpf(String $cpf): void{
         $this->cpfTitular = $cpf;
@@ -56,5 +54,17 @@ class Conta{
         $this->nomeTitular = $nome;
     }
 
+    public static function recuperaNumContas(): int{
+        return self::$numContas;
+    }
+
+    public function recuperaCpf(): string{
+        return $this->titular->recuperaCpf();
+    }
+
+    public function recuperaNome(): string
+    {
+        return $this->titular->recupraNome();
+    }
 }
 
