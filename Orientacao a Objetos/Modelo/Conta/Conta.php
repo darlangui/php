@@ -1,5 +1,7 @@
 <?php
 
+namespace Alura\Banco\Modelo\Conta;
+
 class Conta{
     private Titular $titular;// atributo da conta
     private float $saldo; // atributo da conta
