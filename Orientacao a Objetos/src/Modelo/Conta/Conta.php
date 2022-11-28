@@ -2,17 +2,10 @@
 
 namespace Alura\Banco\Modelo\Conta;
 
-class Conta{
+abstract class Conta{
     private Titular $titular;// atributo da conta
-    private float $saldo; // atributo da conta
+    protected float $saldo; // atributo da conta
     private static $numContas;
-    private int $tipo;
-
-    /**
-     * $tipo
-     * 1 = corrente
-     * 2 = poupança
-     */
 
     public function __construct(Titular $titular){
         $this->saldo = 0;
@@ -27,7 +20,7 @@ class Conta{
     }
 
     public function sacar(float $valorSacar): void{
-        $valorSacar = $valorSacar * 1.05;
+        $valorSacar = $valorSacar * $this->tarifa();
         if($valorSacar > $this->saldo){
             echo 'Saldo indisponível';
             return;
@@ -43,14 +36,6 @@ class Conta{
         $this->saldo += $valorDeposito;
     }
 
-    public function transferir(float $valorTransferir, Conta $contaDestino): void{
-        if($valorTransferir > $this->saldo) {
-            echo 'Saldo indisponível';
-            return;
-        }
-        $this->sacar($valorTransferir);
-        $contaDestino->depositar($valorTransferir);
-    }
 
     public function recuperarSaldo(): float{
         return $this->saldo;
@@ -77,5 +62,7 @@ class Conta{
     {
         return $this->titular->recuperaNome();
     }
+
+    abstract protected function tarifa(): float;
 }
 
