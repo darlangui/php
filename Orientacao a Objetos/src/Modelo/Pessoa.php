@@ -18,7 +18,7 @@ class Pessoa
     {
         return $this->nome;
     }
-    public function recuperaCpf(): Cpf
+    public function recuperaCpf(): string
     {
         return $this->cpf->recuparaCpf();
     }
