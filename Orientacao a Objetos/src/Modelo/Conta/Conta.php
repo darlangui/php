@@ -6,6 +6,14 @@ class Conta{
     private Titular $titular;// atributo da conta
     private float $saldo; // atributo da conta
     private static $numContas;
+    private int $tipo;
+
+    /**
+     * $tipo
+     * 1 = corrente
+     * 2 = poupança
+     */
+
     public function __construct(Titular $titular){
         $this->saldo = 0;
         $this->titular = $titular;
@@ -19,6 +27,7 @@ class Conta{
     }
 
     public function sacar(float $valorSacar): void{
+        $valorSacar = $valorSacar * 1.05;
         if($valorSacar > $this->saldo){
             echo 'Saldo indisponível';
             return;
@@ -66,7 +75,7 @@ class Conta{
 
     public function recuperaNome(): string
     {
-        return $this->titular->recupraNome();
+        return $this->titular->recuperaNome();
     }
 }
 
