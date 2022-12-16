@@ -2,67 +2,66 @@
 
 namespace Alura\Banco\Modelo\Conta;
 
-abstract class Conta{
-    private Titular $titular;// atributo da conta
-    protected float $saldo; // atributo da conta
-    private static $numContas;
+abstract class Conta
+{
+    private $titular;
+    protected $saldo;
+    private static $numeroDeContas = 0;
 
-    public function __construct(Titular $titular){
-        $this->saldo = 0;
+    public function __construct(Titular $titular)
+    {
         $this->titular = $titular;
-        echo 'criando nova conta'.PHP_EOL;
-        self::$numContas++;
+        $this->saldo = 0;
+
+        self::$numeroDeContas++;
     }
 
     public function __destruct()
     {
-        self::$numContas--;
+        self::$numeroDeContas--;
     }
 
-    public function sacar(float $valorSacar): void{
-        $valorSacar = $valorSacar * $this->tarifa();
-        if($valorSacar > $this->saldo){
-            echo 'Saldo indisponível';
+    public function saca(float $valorASacar): void
+    {
+        $tarifaSaque = $valorASacar * $this->percentualTarifa();
+        $valorSaque = $valorASacar + $tarifaSaque;
+        if ($valorSaque > $this->saldo) {
+            echo "Saldo indisponível";
             return;
         }
-        $this->saldo -= $valorSacar;
+
+        $this->saldo -= $valorSaque;
     }
 
-    public function  depositar(float $valorDeposito): void{
-        if ($valorDeposito < 0) {
-            echo `Valor para deposito invalido`;
+    public function deposita(float $valorADepositar): void
+    {
+        if ($valorADepositar < 0) {
+            echo "Valor precisa ser positivo";
             return;
         }
-        $this->saldo += $valorDeposito;
+
+        $this->saldo += $valorADepositar;
     }
 
-
-    public function recuperarSaldo(): float{
+    public function recuperaSaldo(): float
+    {
         return $this->saldo;
     }
 
-
-    public function defineCpf(String $cpf): void{
-        $this->cpfTitular = $cpf;
-    }
-
-    public function defineNome(String $nome): void{
-        $this->nomeTitular = $nome;
-    }
-
-    public static function recuperaNumContas(): int{
-        return self::$numContas;
-    }
-
-    public function recuperaCpf(): string{
-        return $this->titular->recuperaCpf();
-    }
-
-    public function recuperaNome(): string
+    public function recuperaNomeTitular(): string
     {
         return $this->titular->recuperaNome();
     }
 
-    abstract protected function tarifa(): float;
-}
+    public function recuperaCpfTitular(): string
+    {
+        return $this->titular->recuperaCpf();
+    }
 
+    public static function recuperaNumeroDeContas(): int
+    {
+        return self::$numeroDeContas;
+    }
+
+    abstract protected function percentualTarifa(): float;
+}

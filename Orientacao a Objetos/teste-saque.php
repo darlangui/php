@@ -1,17 +1,18 @@
 <?php
 
-use Alura\Banco\Modelo\{Endereco, Cpf};
-use Alura\Banco\Modelo\Conta\{ContaCorrent, ContaPoupanca, Titular};
+use Alura\Banco\Modelo\Conta\{ContaPoupanca, ContaCorrente, Titular};
+use Alura\Banco\Modelo\{CPF, Endereco};
+
 require_once 'autoload.php';
 
-
-$conta = new ContaCorrent(
+$conta = new ContaPoupanca(
     new Titular(
-        new Cpf('1565465451468'),
-        'Darlan',
-        new Endereco('Portela', 'Centro', '13 de Maio', '156')));
-$conta->depositar(500);
-$conta->transferir(100, $conta);
-$conta->sacar(100);
+        new CPF('123.456.789-10'),
+        'Vinicius Dias',
+        new Endereco('Petrópolis', 'bairro Teste', 'Rua lá', '37')
+    )
+);
+$conta->deposita(500);
+$conta->saca(100);
 
-echo $conta->recuperarSaldo();
+echo $conta->recuperaSaldo();

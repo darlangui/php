@@ -2,26 +2,27 @@
 
 namespace Alura\Banco\Modelo;
 
-class Cpf
+final class CPF
 {
-    private string $cpf;
+    private $numero;
 
-    public function __construct(string $cpf)
+    public function __construct(string $numero)
     {
-        $this->validaCpf($cpf);
-        $this->cpf = $cpf;
-    }
+        $numero = filter_var($numero, FILTER_VALIDATE_REGEXP, [
+            'options' => [
+                'regexp' => '/^[0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2}$/'
+            ]
+        ]);
 
-    public function validaCpf(string $cpf)
-    {
-        if(strlen($cpf) < 11){
-            echo 'cof tem menos de 11 caracteres';
+        if ($numero === false) {
+            echo "Cpf inválido";
             exit();
         }
+        $this->numero = $numero;
     }
 
-    public function recuparaCpf(): string
+    public function recuperaNumero(): string
     {
-        return $this->cpf;
+        return $this->numero;
     }
 }
