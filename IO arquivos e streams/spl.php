@@ -4,7 +4,7 @@
     while (!$arquivoCursos->eof()) {
         $linha = $arquivoCursos->fgetcsv(';');
 
-        echo $linha[0] . PHP_EOL;
+        echo utf8_decode($linha[0]) . PHP_EOL;
     }
 
     $date = new DateTime();

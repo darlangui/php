@@ -5,13 +5,13 @@
     $arquivoCsv = fopen('cursos.csv', 'w');
 
     foreach ($meusCursos as $curso) {
-        $linha = [trim(utf8_decode($curso)), 'Sim'];
+        $linha = [trim(utf8_encode($curso)), 'Sim'];
 
         fputcsv($arquivoCsv, $linha, ';');
     }
 
     foreach ($outrosCursos as $curso) {
-        $linha = [trim(utf8_decode($curso)), 'Não'];
+        $linha = [trim(utf8_encode($curso)), 'Não'];
 
         fputcsv($arquivoCsv, $linha, ';');
     }
